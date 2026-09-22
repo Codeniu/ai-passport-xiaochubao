@@ -528,6 +528,9 @@ UI_TEXT = (
     # 一个 > 表示可进入。ASCII 也必须进子集，否则真机上会渲染成空白——缺字检查
     # 只覆盖非 ASCII，这部分全靠这里补齐。
     "codeniu CookLikeHOC leo-radio Noto Sans SC 0123456789.%/>-"
+    # --- windmill 吹气转风车 demo 的 HUD 文案 ---
+    "吹气转风车监听风力转速级转分"
+    "对着麦克风吹气，风车转动越快"
 )
 
 

@@ -44,3 +44,9 @@ esp_err_t demo_low_power_start(void); esp_err_t demo_low_power_stop(void);
 void demo_cook_enter(void);
 void demo_cook_exit(void);
 void demo_cook_key(bsp_btn_t btn, bsp_btn_ev_t ev);
+
+// 吹气转风车（麦克风互动 demo）。息屏低功耗由 windmill_power.c 驱动。
+// 纯逻辑状态机在 windmill_model.h,界面与音频在 demo_windmill.c。
+void demo_windmill_enter(void);
+void demo_windmill_exit(void);
+void demo_windmill_key(bsp_btn_t btn, bsp_btn_ev_t ev);

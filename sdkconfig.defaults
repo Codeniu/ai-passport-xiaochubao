@@ -38,6 +38,14 @@ CONFIG_LV_FS_MEMFS_LETTER=77
 
 # --- 系统 ---
 CONFIG_FREERTOS_HZ=1000
+# main 任务栈。app_main 里会直接调 demo 的 enter(),其中对图片调用
+# lv_image_set_src —— LVGL 会遍历所有已注册解码器的 info 回调,tjpgd 的
+# decoder_info() 无条件在栈上开 4096 字节 workb。栈不够就
+# "Stack protection fault" 整机重启(表现为反复闪屏)。涉及图片的入口必须 >=16KB。
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=16384
+# ISR 栈默认 1536 偏小:I2S/GDMA 音频中断叠加日志打印会把它打爆,panic 里
+# "Stack bounds" 的跨度会正好等于本值。音频类应用给到 3072。
+CONFIG_FREERTOS_ISR_STACKSIZE=3072
 
 # --- Bluetooth LE / NimBLE ---
 # ESP32-C3 仅支持 BLE；示例只启用单连接 peripheral 所需的最小 host 配置。

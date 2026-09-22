@@ -18,6 +18,8 @@
 #include "cook_settings.h"
 #include "cook_power.h"
 #include "demo.h"
+#include "windmill_model.h"
+#include "windmill_power.h"
 #include "lvgl.h"
 #include "esp_log.h"
 #include "esp_sleep.h"
@@ -48,7 +50,7 @@ static void input_task(void *arg) {
     input_event_t input;
     for (;;) {
         if (xQueueReceive(s_input_queue, &input, portMAX_DELAY) == pdTRUE) {
-            demo_cook_key(input.btn, input.event);
+            demo_windmill_key(input.btn, input.event);
         }
     }
 }
@@ -123,12 +125,12 @@ void app_main(void) {
         ESP_LOGE(TAG, "获取 LVGL 锁失败,无法创建首页");
         return;
     }
-    demo_cook_enter();
+    demo_windmill_enter();
     bsp_lvgl_unlock();
     s_input_ready = true;
     // 息屏的第三级（light sleep）由一个独立任务驱动：它每秒查一次空闲时间，
     // 该睡就睡，睡醒靠读按键电压判断。放在这里是因为它要在界面就绪之后才需要工作。
-    cook_power_start();
+    windmill_power_start();
 
     ESP_LOGI(TAG, "就绪");
 }
